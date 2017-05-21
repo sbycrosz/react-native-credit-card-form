@@ -20,6 +20,7 @@ export default class CCInput extends Component {
     value: PropTypes.string,
     placeholder: PropTypes.string,
     keyboardType: PropTypes.string,
+    autoFocus: PropTypes.bool,
 
     status: PropTypes.oneOf(["valid", "invalid", "incomplete"]),
 
@@ -42,6 +43,7 @@ export default class CCInput extends Component {
     value: "",
     status: "incomplete",
     keyboardType: "numeric",
+    autoFocus: false,
     containerStyle: {},
     inputStyle: {},
     labelStyle: {},
@@ -69,7 +71,7 @@ export default class CCInput extends Component {
     const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            additionalInputProps, autoFocus } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
@@ -77,6 +79,7 @@ export default class CCInput extends Component {
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
               {...additionalInputProps}
+              autoFocus={autoFocus}
               keyboardType={keyboardType}
               autoCapitalise="words"
               autoCorrect={false}
