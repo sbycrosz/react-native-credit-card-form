@@ -31,10 +31,10 @@ export default class CCInput extends Component {
     placeholderColor: PropTypes.string,
 
     onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onBecomeEmpty: PropTypes.func,
     onBecomeValid: PropTypes.func,
-    additionalInputProps: PropTypes.shape(TextInput.propTypes),
   };
 
   static defaultProps = {
@@ -46,10 +46,10 @@ export default class CCInput extends Component {
     inputStyle: {},
     labelStyle: {},
     onFocus: () => {},
+    onBlur: () => {},
     onChange: () => {},
     onBecomeEmpty: () => {},
     onBecomeValid: () => {},
-    additionalInputProps: {},
   };
 
   componentWillReceiveProps = newProps => {
@@ -63,20 +63,19 @@ export default class CCInput extends Component {
   focus = () => this.refs.input.focus();
 
   _onFocus = () => this.props.onFocus(this.props.field);
+  _onBlur = () => this.props.onBlur(this.props.field);
   _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
     const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            validColor, invalidColor, placeholderColor } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
-              {...additionalInputProps}
               keyboardType={keyboardType}
               autoCapitalise="words"
               autoCorrect={false}
@@ -92,6 +91,7 @@ export default class CCInput extends Component {
               placeholder={placeholder}
               value={value}
               onFocus={this._onFocus}
+              onBlur={this._onBlur}
               onChangeText={this._onChange} />
         </View>
       </TouchableOpacity>

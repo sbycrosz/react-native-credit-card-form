@@ -84,6 +84,7 @@ _onChange => form => console.log(form);
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
+|onBlur | PropTypes.func | What to do when user blurs out of input |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
