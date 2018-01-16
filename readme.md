@@ -101,7 +101,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
-|labels | PropTypes.object | Defaults to <br/>`{ number: "CARD NUMBER", expiry: "EXPIRY", cvc: "CVC/CCV" }` |
+|labels | PropTypes.object | Defaults to <br/>`{ number: "CARD NUMBER", expiry: "EXPIRY", cvc: "CVC/CCV", month: "MONTH", year: "YEAR" }` |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
 |cardScale | PropTypes.number | Scales the credit-card view.<br/>Defaults to `1`, which translates to `{ width: 300, height: 190 }` |
 |cardFontFamily | PropTypes.string | Font family for the CreditCardView, works best with monospace fonts. Defaults to Courier (iOS) or monospace (android) |
@@ -137,6 +137,8 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |imageFront | PropTypes.number | Image for the credit-card |
 |imageBack | PropTypes.number | Image for the credit-card |
 |customIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
+|labelMonth | PropTypes.string | Month label appearing on the front card (default to `MONTH`) |
+|labelYear | PropTypes.string | Year label appearing on the front card (default to `YEAR`) |
 
 #### Note on additionalInputsProps
 
