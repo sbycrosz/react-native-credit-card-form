@@ -9,6 +9,8 @@ import {
   ViewPropTypes,
 } from "react-native";
 
+const viewPropTypes = ViewPropTypes || View.propTypes;
+
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
@@ -25,7 +27,7 @@ export default class CCInput extends Component {
 
     status: PropTypes.oneOf(["valid", "invalid", "incomplete"]),
 
-    containerStyle: ViewPropTypes.style,
+    containerStyle: viewPropTypes.style,
     inputStyle: Text.propTypes.style,
     labelStyle: Text.propTypes.style,
     validColor: PropTypes.string,

@@ -15,6 +15,8 @@ import CreditCard from "./CardView";
 import CCInput from "./CCInput";
 import { InjectedProps } from "./connectToState";
 
+const viewPropTypes = ViewPropTypes || View.propTypes;
+
 const s = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -50,7 +52,7 @@ export default class CreditCardInput extends Component {
 
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
-    inputContainerStyle: ViewPropTypes.style,
+    inputContainerStyle: viewPropTypes.style,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
