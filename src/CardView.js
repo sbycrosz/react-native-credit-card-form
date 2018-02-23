@@ -118,10 +118,11 @@ export default class CardView extends Component {
     const isAmex = brand === "american-express";
     const shouldFlip = !isAmex && focused === "cvc";
 
-    const containerSize = { ...BASE_SIZE, height: BASE_SIZE.height * scale };
+    const containerSize = { ...BASE_SIZE, width: BASE_SIZE.width * scale, height: BASE_SIZE.height * scale };
     const transform = { transform: [
-      { scale },
+      { translateX: ((BASE_SIZE.width * (scale - 1) / 2)) },
       { translateY: ((BASE_SIZE.height * (scale - 1) / 2)) },
+      { scale },
     ] };
 
     return (
