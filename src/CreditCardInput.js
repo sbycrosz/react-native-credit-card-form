@@ -4,6 +4,7 @@ import ReactNative, {
   NativeModules,
   View,
   Text,
+  Keyboard,
   StyleSheet,
   ScrollView,
   Dimensions,
@@ -23,7 +24,7 @@ const s = StyleSheet.create({
     marginTop: 20,
   },
   inputContainer: {
-    marginLeft: 20,
+    marginLeft: 25,
   },
   inputLabel: {
     fontWeight: "bold",
@@ -96,25 +97,37 @@ export default class CreditCardInput extends Component {
 
   componentDidMount = () => this._focus(this.props.focused);
 
-  componentWillReceiveProps = newProps => {
+  componentWillReceiveProps = (newProps) => {
     if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
   };
 
-  _focus = field => {
+  _focus = (field) => {
+    console.log("_FOCUS", field);
     if (!field) return;
 
-    const scrollResponder = this.refs.Form.getScrollResponder();
-    const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
+    const scrollResponder = this.Form.getScrollResponder();
+    const nodeHandle = ReactNative.findNodeHandle(this[field]);
 
-    NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
-      e => { throw e; },
-      x => {
+    NativeModules.UIManager.measureLayoutRelativeToParent(
+      nodeHandle,
+      (e) => { throw e; },
+      (x) => {
         scrollResponder.scrollTo({ x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0), animated: true });
-        this.refs[field].focus();
-      });
+        this[field].focus();
+      },
+    );
   }
 
-  _inputProps = field => {
+  onBecomeValid = (onBecomeValid, field) => {
+    const { requiresName, requiresCVC, requiresPostalCode } = this.props;
+    if (
+      (field === "expiry" && !requiresCVC && !requiresName && !requiresPostalCode)
+      || (field === "cvc" && !requiresName && !requiresPostalCode)
+    ) this.dismissKeyboard();
+    return onBecomeValid(field);
+  }
+
+  _inputProps = (field) => {
     const {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
@@ -125,62 +138,101 @@ export default class CreditCardInput extends Component {
     return {
       inputStyle: [s.input, inputStyle],
       labelStyle: [s.inputLabel, labelStyle],
-      validColor, invalidColor, placeholderColor,
-      ref: field, field,
+      validColor,
+      invalidColor,
+      placeholderColor,
+      ref: this.fieldRef(field),
+      field,
 
       label: labels[field],
       placeholder: placeholders[field],
       value: values[field],
       status: status[field],
 
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      onFocus,
+      onChange,
+      onBecomeEmpty,
+      onBecomeValid: (...args) => this.onBecomeValid(onBecomeValid, ...args),
 
       additionalInputProps: additionalInputsProps[field],
     };
   };
 
+  dismissKeyboard = () => Keyboard.dismiss()
+
+  scrollViewRef = (ref) => { this.Form = ref; }
+
+  fieldRef = field => (ref) => { this[field] = ref; }
+
   render() {
     const {
       cardImageFront, cardImageBack, inputContainerStyle,
-      values: { number, expiry, cvc, name, type }, focused,
+      values: {
+        number, expiry, cvc, name, type, maxNumberLength, maxCodeLength, maxExpiryLength,
+      }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons,
+      cardScale, cardFontFamily, cardBrandIcons, hidePicture,
     } = this.props;
 
     return (
       <View style={s.container}>
-        <CreditCard focused={focused}
-          brand={type}
-          scale={cardScale}
-          fontFamily={cardFontFamily}
-          imageFront={cardImageFront}
-          imageBack={cardImageBack}
-          customIcons={cardBrandIcons}
-          name={requiresName ? name : " "}
-          number={number}
-          expiry={expiry}
-          cvc={cvc} />
-        <ScrollView ref="Form"
+        {
+          hidePicture
+          ? null
+          :
+          <CreditCard
+            focused={focused}
+            brand={type}
+            scale={cardScale}
+            fontFamily={cardFontFamily}
+            imageFront={cardImageFront}
+            imageBack={cardImageBack}
+            customIcons={cardBrandIcons}
+            name={requiresName ? name : " "}
+            number={number}
+            expiry={expiry}
+            cvc={cvc} />
+        }
+        <ScrollView
+          ref={this.scrollViewRef}
           horizontal
+          keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator
           style={s.form}>
-          <CCInput {...this._inputProps("number")}
+          <CCInput
+            {...this._inputProps("number")}
+            onBlur={this.dismissKeyboard}
             keyboardType="numeric"
+            maxLength={maxNumberLength}
             containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
-          <CCInput {...this._inputProps("expiry")}
+          <CCInput
+            {...this._inputProps("expiry")}
+            onBlur={this.dismissKeyboard}
+            maxLength={maxExpiryLength}
+            onSubmitEditing={!requiresCVC && !requiresName && !requiresPostalCode ? this.dismissKeyboard : null}
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
           { requiresCVC &&
-            <CCInput {...this._inputProps("cvc")}
+            <CCInput
+              {...this._inputProps("cvc")}
+              onBlur={this.dismissKeyboard}
+              maxLength={maxCodeLength}
               keyboardType="numeric"
+              onSubmitEditing={!requiresName && !requiresPostalCode ? this.dismissKeyboard : null}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
           { requiresName &&
-            <CCInput {...this._inputProps("name")}
+            <CCInput
+              {...this._inputProps("name")}
+              onBlur={this.dismissKeyboard}
+              onSubmitEditing={!requiresPostalCode ? this.dismissKeyboard : null}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
           { requiresPostalCode &&
-            <CCInput {...this._inputProps("postalCode")}
+            <CCInput
+              {...this._inputProps("postalCode")}
+              onBlur={this.dismissKeyboard}
+              onSubmitEditing={this.dismissKeyboard}
               keyboardType="numeric"
               containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
         </ScrollView>

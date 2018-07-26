@@ -16,13 +16,16 @@ const addGaps = (string = "", gaps) => {
 const FALLBACK_CARD = { gaps: [4, 8, 12], lengths: [16], code: { size: 3 } };
 export default class CCFieldFormatter {
   constructor(displayedFields) {
-    this._displayedFields = [...displayedFields, "type"];
+    this._displayedFields = [...displayedFields, "type", "maxNumberLength", "maxCodeLength", "maxExpiryLength"];
   }
 
   formatValues = (values) => {
     const card = valid.number(values.number).card || FALLBACK_CARD;
 
     return pick({
+      maxNumberLength: card.lengths[card.lengths.length - 1] + card.gaps.length,
+      maxCodeLength: card.code.size,
+      maxExpiryLength: 5,
       type: card.type,
       number: this._formatNumber(values.number, card),
       expiry: this._formatExpiry(values.expiry),
@@ -34,9 +37,7 @@ export default class CCFieldFormatter {
 
   _formatNumber = (number, card) => {
     const numberSanitized = removeNonNumber(number);
-    const maxLength = card.lengths[card.lengths.length - 1];
-    const lengthSanitized = limitLength(numberSanitized, maxLength);
-    const formatted = addGaps(lengthSanitized, card.gaps);
+    const formatted = addGaps(numberSanitized, card.gaps);
     return formatted;
   };
 
