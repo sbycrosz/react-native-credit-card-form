@@ -59,7 +59,7 @@ _onChange => form => console.log(form);
   	number: "4242 4242",
   	expiry: "06/19",
   	cvc: "300",
-  	type: "visa", // will be one of [null, "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro"]
+  	type: "visa", // will be one of [null, "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo"]
   	name: "Sam",
   	postalCode: "34567",
   },
@@ -67,12 +67,12 @@ _onChange => form => console.log(form);
 	number: "incomplete",
 	expiry: "incomplete",
 	cvc: "incomplete",
-	name: "incomplete", 
+	name: "incomplete",
 	postalCode: "incomplete",
   },
 };
 
-// Notes: 
+// Notes:
 // cvc, name, & postalCode will only be available when the respective props is enabled (e.g. requiresName, requiresCVC)
 ```
 
