@@ -118,6 +118,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |requiresPostalCode | PropTypes.bool | Shows postalCode field<br/> Default to `false` |
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
 |allowScroll | PropTypes.bool | enables horizontal scrolling on CreditCardInput <br/> Defaults to `false` |
+|verticalInput | PropTypes.bool | enables vertical inputs mode on CreditCardInput <br/> Defaults to `false` |
 |cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
 | additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
 
