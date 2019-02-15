@@ -85,7 +85,7 @@ export default class CardView extends Component {
     number: PropTypes.string,
     expiry: PropTypes.string,
     cvc: PropTypes.string,
-    placeholder: PropTypes.object,
+    onCardLabels: PropTypes.object,
 
     scale: PropTypes.number,
     fontFamily: PropTypes.string,
@@ -96,13 +96,13 @@ export default class CardView extends Component {
 
   static defaultProps = {
     name: "",
-    placeholder: {
+    onCardLabels: {
       number: "•••• •••• •••• ••••",
       name: "FULL NAME",
+      expiryLabel: "MONTH/YEAR",
       expiry: "••/••",
       cvc: "•••",
     },
-
     scale: 1,
     fontFamily: Platform.select({ ios: "Courier", android: "monospace" }),
     imageFront: require("../images/card-front.png"),
@@ -112,7 +112,8 @@ export default class CardView extends Component {
   render() {
     const { focused,
       brand, name, number, expiry, cvc, customIcons,
-      placeholder, imageFront, imageBack, scale, fontFamily } = this.props;
+      imageFront, imageBack, scale, fontFamily,
+      onCardLabels } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === "american-express";
@@ -138,27 +139,27 @@ export default class CardView extends Component {
               <Image style={[s.icon]}
                 source={Icons[brand]} />
               <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
-                { !number ? placeholder.number : number }
+                { !number ? onCardLabels.number : number }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.name, !name && s.placeholder, focused === "name" && s.focused]}
                 numberOfLines={1}>
-                { !name ? placeholder.name : name.toUpperCase() }
+                { !name ? onCardLabels.name : name.toUpperCase() }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-                MONTH/YEAR
+                { onCardLabels.expiryLabel }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
-                { !expiry ? placeholder.expiry : expiry }
+                { !expiry ? onCardLabels.expiry : expiry }
               </Text>
               { isAmex &&
                   <Text style={[s.baseText, { fontFamily }, s.amexCVC, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                    { !cvc ? placeholder.cvc : cvc }
+                    { !cvc ? onCardLabels.cvc : cvc }
                   </Text> }
           </ImageBackground>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageBack}>
               <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                { !cvc ? placeholder.cvc : cvc }
+                { !cvc ? onCardLabels.cvc : cvc }
               </Text>
           </ImageBackground>
         </FlipCard>
