@@ -37,10 +37,10 @@ const s = StyleSheet.create({
     color: "rgba(255, 255, 255, 1)",
   },
   number: {
-    fontSize: 21,
+    fontSize: 20,
     position: "absolute",
     top: 95,
-    left: 28,
+    left: 24,
   },
   name: {
     fontSize: 16,
