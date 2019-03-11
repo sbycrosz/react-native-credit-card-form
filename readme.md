@@ -56,23 +56,23 @@ _onChange => form => console.log(form);
 {
   valid: true, // will be true once all fields are "valid" (time to enable the submit button)
   values: { // will be in the sanitized and formatted form
-  	number: "4242 4242",
-  	expiry: "06/19",
-  	cvc: "300",
-  	type: "visa", // will be one of [null, "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro"]
-  	name: "Sam",
-  	postalCode: "34567",
+    number: "4242 4242",
+    expiry: "06/19",
+    cvc: "300",
+    type: "visa", // will be one of [null, "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro"]
+    name: "Sam",
+    postalCode: "34567",
   },
   status: {  // will be one of ["incomplete", "invalid", and "valid"]
-	number: "incomplete",
-	expiry: "incomplete",
-	cvc: "incomplete",
-	name: "incomplete", 
-	postalCode: "incomplete",
+  number: "incomplete",
+  expiry: "incomplete",
+  cvc: "incomplete",
+  name: "incomplete",
+  postalCode: "incomplete",
   },
 };
 
-// Notes: 
+// Notes:
 // cvc, name, & postalCode will only be available when the respective props is enabled (e.g. requiresName, requiresCVC)
 ```
 
@@ -107,6 +107,8 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |cardFontFamily | PropTypes.string | Font family for the CreditCardView, works best with monospace fonts. Defaults to Courier (iOS) or monospace (android) |
 |cardImageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
 |cardImageBack | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
+|formStyle | ViewPropTypes.style | Style for credit-card form |
+|verticalFormRowStyle | ViewPropTypes.style | Style for the rows when using a vertical form |
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |inputContainerStyle | ViewPropTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |
@@ -119,7 +121,9 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
 |allowScroll | PropTypes.bool | enables horizontal scrolling on CreditCardInput <br/> Defaults to `false` |
 |cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
-| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
+| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).|
+|verticalForm| PropTypes.bool | Enables vertical form instead of horizontal |
+|verticalFormRows| PropTypes.array | Array of rows with fields inse for the vertical form. Supported field parameters are `name` (number,expiry,cvc,number,postalCode) and `width`. Example: `[{ fields: [{ name: 'name' }] }, { fields: [{ name: 'number' }, { name: 'expiry' }] }]`.  |
 
 ##CardView
 
@@ -161,9 +165,9 @@ Set values into credit card form
 
 
 ```js
-	// sets 4242 on credit card number field
-	// other fields will stay unchanged
-	this.refs.CCInput.setValues({ number: "4242" });
+  // sets 4242 on credit card number field
+  // other fields will stay unchanged
+  this.refs.CCInput.setValues({ number: "4242" });
 ```
 
 **Known issues:** clearing a field e.g. `setValues({ expiry: "" })` will trigger the logic to `move to previous field` and trigger other kind of weird side effects. **PR plz**
@@ -173,8 +177,8 @@ Set values into credit card form
 focus on to specified field
 
 ```js
-	// focus to expiry field
-	this.refs.CCInput.focus("expiry");
+  // focus to expiry field
+  this.refs.CCInput.focus("expiry");
 ```
 
 # Example
