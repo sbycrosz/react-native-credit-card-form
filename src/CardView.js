@@ -124,6 +124,8 @@ export default class CardView extends Component {
       { translateY: ((BASE_SIZE.height * (scale - 1) / 2)) },
     ] };
 
+    const adjustedStyle = number && number.length > 19 ? { fontSize: 18 } : null;
+
     return (
       <View style={[s.cardContainer, containerSize]}>
         <FlipCard style={{ borderWidth: 0 }}
@@ -137,7 +139,9 @@ export default class CardView extends Component {
             source={imageFront}>
               <Image style={[s.icon]}
                 source={Icons[brand]} />
-              <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
+              <Text
+                adjustsFontSizeToFit
+                style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused, { ...adjustedStyle }]}>
                 { !number ? placeholder.number : number }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.name, !name && s.placeholder, focused === "name" && s.focused]}

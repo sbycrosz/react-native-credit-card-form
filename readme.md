@@ -26,6 +26,7 @@ Code:
 * Credit-card input validations & formatting while you're typing
 * Form is fully navigatable using keypad
 * Works on both Android and iOS
+* Now Supports Verve Card
 
 # Usage
 
