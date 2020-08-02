@@ -50,7 +50,7 @@ import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-i
 And then on your onChange handler:
 
 ```js
-_onChange => form => console.log(form);
+_onChange = form => console.log(form);
 
 // will print:
 {
