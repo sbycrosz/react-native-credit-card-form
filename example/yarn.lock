@@ -2690,8 +2690,8 @@ inherits@2, inherits@2.0.3, inherits@^2.0.3, inherits@~2.0.0, inherits@~2.0.1, i
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
 ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
 
 inquirer@^3.0.1, inquirer@^3.0.6:
   version "3.3.0"
@@ -4570,13 +4570,14 @@ react-native-branch@2.0.0-beta.3:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
 
 "react-native-credit-card-input@file:./..":
-  version "0.3.3"
+  version "0.4.1"
   dependencies:
     card-validator "^3.0.0"
     lodash.compact "^3.0.1"
     lodash.every "^4.6.0"
     lodash.pick "^4.4.0"
     lodash.values "^4.3.0"
+    prop-types "^15.6.0"
     react-native-flip-card "^3.4.1"
 
 react-native-flip-card@^3.4.1:
