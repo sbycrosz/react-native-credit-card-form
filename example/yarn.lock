@@ -4570,13 +4570,14 @@ react-native-branch@2.0.0-beta.3:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
 
 "react-native-credit-card-input@file:./..":
-  version "0.3.3"
+  version "0.4.1"
   dependencies:
     card-validator "^3.0.0"
     lodash.compact "^3.0.1"
     lodash.every "^4.6.0"
     lodash.pick "^4.4.0"
     lodash.values "^4.3.0"
+    prop-types "^15.6.0"
     react-native-flip-card "^3.4.1"
 
 react-native-flip-card@^3.4.1:
@@ -6104,8 +6105,8 @@ xtend@~2.1.1:
     object-keys "~0.4.0"
 
 y18n@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.2.tgz#85c901bd6470ce71fc4bb723ad209b70f7f28696"
 
 yallist@^2.0.0, yallist@^2.1.2:
   version "2.1.2"
