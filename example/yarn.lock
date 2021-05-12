@@ -4570,13 +4570,14 @@ react-native-branch@2.0.0-beta.3:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
 
 "react-native-credit-card-input@file:./..":
-  version "0.3.3"
+  version "0.4.1"
   dependencies:
     card-validator "^3.0.0"
     lodash.compact "^3.0.1"
     lodash.every "^4.6.0"
     lodash.pick "^4.4.0"
     lodash.values "^4.3.0"
+    prop-types "^15.6.0"
     react-native-flip-card "^3.4.1"
 
 react-native-flip-card@^3.4.1:
@@ -5648,8 +5649,8 @@ trim-right@^1.0.1:
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
 trim@~0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.3.tgz#05243a47a3a4113e6b49367880a9cca59697a20b"
 
 tsscmp@1.0.5:
   version "1.0.5"
